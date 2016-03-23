@@ -49,7 +49,7 @@ class Identification {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
     $this->_xml->formatOutput = \IRIX\Report::DEBUG;
 
-    $identification = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Identification'); $this->_xml->appendChild($identification);
+    $identification = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'id:Identification'); $this->_xml->appendChild($identification);
     $identification->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
     $identification->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
@@ -67,13 +67,13 @@ class Identification {
 
     if (!is_null($this->addressees)) {
       $addressees = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Addressees');
-      foreach ($this->addressees as $a) { $addressee = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Addressee', $a); $addressees->appendChild($addressee);  }
+      foreach ($this->addressees as $a) { $addressee = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Addressee', $a); $addressees->appendChild($addressee); }
       $identification->appendChild($addressees);
     }
 
     if (!is_null($this->reporting_bases)) {
       $reporting_bases = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ReportingBases');
-      foreach ($this->reporting_bases as $rb) { $reporting_basis = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ReportingBasis', $rb); $reporting_bases->appendChild($reporting_basis);  }
+      foreach ($this->reporting_bases as $rb) { $reporting_basis = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ReportingBasis', $rb); $reporting_bases->appendChild($reporting_basis); }
       $identification->appendChild($reporting_bases);
     }
 

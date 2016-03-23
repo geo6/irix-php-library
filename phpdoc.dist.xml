@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title><![CDATA[IRIX PHP Library]]></title>
+  <parser>
+    <target>docs/parser_output</target>
+  </parser>
+  <transformer>
+    <target>docs</target>
+  </transformer>
+  <files>
+    <directory>.</directory>
+    <ignore>docs/*</ignore>
+    <ignore>test.php</ignore>
+  </files>
+</phpdoc>
