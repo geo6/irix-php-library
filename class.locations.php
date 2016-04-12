@@ -2,8 +2,8 @@
 /**
  * IRIX PHP Library
  * PHP Version 5.3+
- * @author Jonathan Beliën <jbe@geo6.be>
- * @copyright 2016 Jonathan Beliën
+ * @author Jonathan BeliÃ«n <jbe@geo6.be>
+ * @copyright 2016 Jonathan BeliÃ«n
  * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
  */
 namespace IRIX;
@@ -11,7 +11,7 @@ namespace IRIX;
 /**
  * IRIX PHP Library - Locations Section
  * @package IRIX\Report
- * @author Jonathan Beliën <jbe@geo6.be>
+ * @author Jonathan BeliÃ«n <jbe@geo6.be>
  */
 class Locations {
   public $location = array();
