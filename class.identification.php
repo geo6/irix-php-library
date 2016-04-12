@@ -151,6 +151,8 @@ class Identification {
 
           return $i;
         }
+      } else {
+        return NULL;
       }
     }
 
