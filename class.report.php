@@ -18,6 +18,8 @@ class Report {
   const DEBUG = TRUE;
 
   public $identification = NULL;
+  public $measurements = NULL;
+  public $locations = NULL;
   public $annexes = NULL;
 
   private $event_information = NULL;
@@ -25,10 +27,8 @@ class Report {
   private $meteorology = NULL;
   private $consequences = NULL;
   private $response_actions = NULL;
-  private $measurements = NULL;
   private $medical_information = NULL;
   private $media_information = NULL;
-  private $locations = NULL;
   private $requests = NULL;
 
   private $_xml = NULL;
@@ -50,11 +50,14 @@ class Report {
     $report = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format', 'irix:Report');
     $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
     $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:id', 'http://www.iaea.org/2012/IRIX/Format/Identification');
+    if (!is_null($this->locations)) $report->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:loc', 'http://www.iaea.org/2012/IRIX/Format/Locations');
     $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:html', 'http://www.w3.org/1999/xhtml');
     $report->setAttribute('version', self::VERSION);
     $this->_xml->appendChild($report);
 
     $report->appendChild($this->_xml->importNode($this->identification->getXMLElement(), TRUE));
+    if (!is_null($this->measurements)) $report->appendChild($this->_xml->importNode($this->measurements->getXMLElement(), TRUE));
+    if (!is_null($this->locations)) $report->appendChild($this->_xml->importNode($this->locations->getXMLElement(), TRUE));
     if (!is_null($this->annexes)) $report->appendChild($this->_xml->importNode($this->annexes->getXMLElement(), TRUE));
 
     return $this->_xml->saveXML();
@@ -88,6 +91,8 @@ class Report {
 
       if ($r->validate(FALSE)) {
         $r->identification = \IRIX\Identification::read($filename);
+        $r->measurements = \IRIX\Measurements::read($filename);
+        $r->locations = \IRIX\Locations::read($filename);
         $r->annexes = \IRIX\Annexes::read($filename);
 
         return $r;

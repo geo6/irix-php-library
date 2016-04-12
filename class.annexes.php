@@ -18,6 +18,8 @@ class Annexes {
   public $file_enclosure = NULL;
   public $signature = NULL;
 
+  private $_xml = NULL;
+
   /**
    *
    */
@@ -31,27 +33,18 @@ class Annexes {
     $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
     if (!is_null($this->annotation)) {
-      if (is_array($this->annotation)) {
-        foreach ($this->annotation as $a) { $annexes->appendChild($this->_xml->importNode($a->getXMLElement(), TRUE)); }
-      } else {
-        $annexes->appendChild($this->_xml->importNode($this->annotation->getXMLElement(), TRUE));
-      }
+      if (!is_array($this->annotation)) $this->annotation = array( $this->annotation );
+      foreach ($this->annotation as $a) { $annexes->appendChild($this->_xml->importNode($a->getXMLElement(), TRUE)); }
     }
 
     if (!is_null($this->file_enclosure)) {
-      if (is_array($this->file_enclosure)) {
-        foreach ($this->file_enclosure as $fe) { $annexes->appendChild($this->_xml->importNode($fe->getXMLElement(), TRUE)); }
-      } else {
-        $annexes->appendChild($this->_xml->importNode($this->file_enclosure->getXMLElement(), TRUE));
-      }
+      if (!is_array($this->file_enclosure)) $this->file_enclosure = array( $this->file_enclosure );
+      foreach ($this->file_enclosure as $fe) { $annexes->appendChild($this->_xml->importNode($fe->getXMLElement(), TRUE)); }
     }
 
     if (!is_null($this->signature)) {
-      if (is_array($this->signature)) {
-        foreach ($this->signature as $s) { $annexes->appendChild($this->_xml->importNode($s->getXMLElement(), TRUE)); }
-      } else {
-        $annexes->appendChild($this->_xml->importNode($this->signature->getXMLElement(), TRUE));
-      }
+      if (!is_array($this->signature)) $this->signature = array( $this->signature );
+      foreach ($this->signature as $s) { $annexes->appendChild($this->_xml->importNode($s->getXMLElement(), TRUE)); }
     }
 
     return $this->_xml;
@@ -104,6 +97,9 @@ class Annexes {
   }
 }
 
+/**
+ *
+ */
 namespace IRIX\Annexes;
 
 require('class.annexes.annotation.php');

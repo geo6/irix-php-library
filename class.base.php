@@ -9,20 +9,19 @@
 namespace IRIX\Base;
 
 /**
- * IRIX PHP Library - PersonContactInfo Container
+ * IRIX PHP Library - Address Container
  * @package IRIX\Base
  * @author Jonathan Beliën <jbe@geo6.be>
  */
-class PersonContactInfo {
-  public $name;
+class Address {
+  public $type;
 
-  public $user_id = NULL;
-  public $position = NULL;
-  public $organisation_id = NULL;
-  public $phone_number = NULL;
-  public $fax_number = NULL;
-  public $email_address = NULL;
-  public $description = NULL;
+  public $postal_code;
+  public $municipality;
+  public $country;
+
+  public $postbox = NULL;
+  public $street = NULL;
 
   private $_xml;
 
@@ -32,15 +31,13 @@ class PersonContactInfo {
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
 
-    $person_contact_info = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PersonContactInfo'); $this->_xml->appendChild($person_contact_info);
-    $name = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Name', $this->name); $person_contact_info->appendChild($name);
-    if (!is_null($this->user_id)) { $user_id = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'UserID', $this->user_id); $person_contact_info->appendChild($user_id); }
-    if (!is_null($this->position)) { $position = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Position', $this->position); $person_contact_info->appendChild($position); }
-    if (!is_null($this->organisation_id)) { $organisation_id = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'OrganisationID', $this->organisation_id); $person_contact_info->appendChild($organisation_id); }
-    if (!is_null($this->phone_number)) { $phone_number = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PhoneNumber', $this->phone_number); $person_contact_info->appendChild($phone_number); }
-    if (!is_null($this->fax_number)) { $fax_number = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'FaxNumber', $this->fax_number); $person_contact_info->appendChild($fax_number); }
-    if (!is_null($this->email_address)) { $email_address = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'EmailAddress', $this->email_address); $person_contact_info->appendChild($email_address); }
-    if (!is_null($this->description)) { $description = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Description', $this->description); $person_contact_info->appendChild($description); }
+    $address = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Address'); $this->_xml->appendChild($address);
+    $address->setAttribute('Type', $this->type);
+    if (!is_null($this->postbox)) { $postbox = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Postbox', $this->postbox); $address->appendChild($postbox); }
+    if (!is_null($this->street)) { $street = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Street', $this->street); $address->appendChild($street); }
+    $postal_code = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PostalCode', $this->postal_code); $address->appendChild($postal_code);
+    $municipality = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Municipality', $this->municipality); $address->appendChild($municipality);
+    $country = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Country', $this->country); $address->appendChild($country);
 
     return $this->_xml;
   }
@@ -49,26 +46,25 @@ class PersonContactInfo {
    *
    */
   public function getXMLElement() {
-    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PersonContactInfo')->item(0);
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Address')->item(0);
   }
 
   /**
    *
    */
   public static function readXMLElement($domelement) {
-    $person_contact_info = new self();
+    $address = new self();
 
-    $person_contact_info->name = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Name')->item(0)->textContent;
+    $address->type = $domelement->getAttribute('Type');
 
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'UserID'        )->item(0); if (!is_null($item)) $person_contact_info->user_id = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Position'      )->item(0); if (!is_null($item)) $person_contact_info->position = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'OrganisationID')->item(0); if (!is_null($item)) $person_contact_info->organisation_id = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PhoneNumber'   )->item(0); if (!is_null($item)) $person_contact_info->phone_number = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'FaxNumber'     )->item(0); if (!is_null($item)) $person_contact_info->fax_number = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'EmailAddress'  )->item(0); if (!is_null($item)) $person_contact_info->email_address = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Description'   )->item(0); if (!is_null($item)) $person_contact_info->description = $item->textContent;
+    $address->postal_code  = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PostalCode'  )->item(0)->textContent;
+    $address->municipality = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Municipality')->item(0)->textContent;
+    $address->country      = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Country'     )->item(0)->textContent;
 
-    return $person_contact_info;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Postbox')->item(0); if (!is_null($item)) $address->postbox = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Street' )->item(0); if (!is_null($item)) $street->address  = $item->textContent;
+
+    return $address;
   }
 }
 
@@ -145,19 +141,20 @@ class OrganisationContactInfo {
 }
 
 /**
- * IRIX PHP Library - Address Container
+ * IRIX PHP Library - PersonContactInfo Container
  * @package IRIX\Base
  * @author Jonathan Beliën <jbe@geo6.be>
  */
-class Address {
-  public $type;
+class PersonContactInfo {
+  public $name;
 
-  public $postal_code;
-  public $municipality;
-  public $country;
-
-  public $postbox = NULL;
-  public $street = NULL;
+  public $user_id = NULL;
+  public $position = NULL;
+  public $organisation_id = NULL;
+  public $phone_number = NULL;
+  public $fax_number = NULL;
+  public $email_address = NULL;
+  public $description = NULL;
 
   private $_xml;
 
@@ -167,13 +164,15 @@ class Address {
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
 
-    $address = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Address'); $this->_xml->appendChild($address);
-    $address->setAttribute('Type', $this->type);
-    if (!is_null($this->postbox)) { $postbox = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Postbox', $this->postbox); $address->appendChild($postbox); }
-    if (!is_null($this->street)) { $street = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Street', $this->street); $address->appendChild($street); }
-    $postal_code = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PostalCode', $this->postal_code); $address->appendChild($postal_code);
-    $municipality = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Municipality', $this->municipality); $address->appendChild($municipality);
-    $country = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Country', $this->country); $address->appendChild($country);
+    $person_contact_info = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PersonContactInfo'); $this->_xml->appendChild($person_contact_info);
+    $name = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Name', $this->name); $person_contact_info->appendChild($name);
+    if (!is_null($this->user_id)) { $user_id = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'UserID', $this->user_id); $person_contact_info->appendChild($user_id); }
+    if (!is_null($this->position)) { $position = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Position', $this->position); $person_contact_info->appendChild($position); }
+    if (!is_null($this->organisation_id)) { $organisation_id = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'OrganisationID', $this->organisation_id); $person_contact_info->appendChild($organisation_id); }
+    if (!is_null($this->phone_number)) { $phone_number = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PhoneNumber', $this->phone_number); $person_contact_info->appendChild($phone_number); }
+    if (!is_null($this->fax_number)) { $fax_number = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'FaxNumber', $this->fax_number); $person_contact_info->appendChild($fax_number); }
+    if (!is_null($this->email_address)) { $email_address = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'EmailAddress', $this->email_address); $person_contact_info->appendChild($email_address); }
+    if (!is_null($this->description)) { $description = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Description', $this->description); $person_contact_info->appendChild($description); }
 
     return $this->_xml;
   }
@@ -182,24 +181,25 @@ class Address {
    *
    */
   public function getXMLElement() {
-    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Address')->item(0);
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PersonContactInfo')->item(0);
   }
 
   /**
    *
    */
   public static function readXMLElement($domelement) {
-    $address = new self();
+    $person_contact_info = new self();
 
-    $address->type = $domelement->getAttribute('Type');
+    $person_contact_info->name = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Name')->item(0)->textContent;
 
-    $address->postal_code  = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PostalCode'  )->item(0)->textContent;
-    $address->municipality = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Municipality')->item(0)->textContent;
-    $address->country      = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Country'     )->item(0)->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'UserID'        )->item(0); if (!is_null($item)) $person_contact_info->user_id = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Position'      )->item(0); if (!is_null($item)) $person_contact_info->position = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'OrganisationID')->item(0); if (!is_null($item)) $person_contact_info->organisation_id = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'PhoneNumber'   )->item(0); if (!is_null($item)) $person_contact_info->phone_number = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'FaxNumber'     )->item(0); if (!is_null($item)) $person_contact_info->fax_number = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'EmailAddress'  )->item(0); if (!is_null($item)) $person_contact_info->email_address = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Description'   )->item(0); if (!is_null($item)) $person_contact_info->description = $item->textContent;
 
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Postbox')->item(0); if (!is_null($item)) $address->postbox = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Base', 'Street' )->item(0); if (!is_null($item)) $street->address  = $item->textContent;
-
-    return $address;
+    return $person_contact_info;
   }
 }

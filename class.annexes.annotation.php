@@ -17,6 +17,8 @@ class Annotation {
   public $text;
   public $title = NULL;
 
+  private $_xml = NULL;
+
   /**
    *
    */

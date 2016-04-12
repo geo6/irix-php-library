@@ -31,6 +31,8 @@ class FileEnclosure {
   public $file_date_and_time = NULL;
   public $file_hash = NULL;
 
+  private $_xml = NULL;
+
   /**
    *
    */
