@@ -88,6 +88,7 @@ class Report {
 
       if ($r->validate(FALSE)) {
         $r->identification = \IRIX\Identification::read($filename);
+        $r->annexes = \IRIX\Annexes::read($filename);
 
         return $r;
       }

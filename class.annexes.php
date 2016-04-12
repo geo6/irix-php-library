@@ -71,6 +71,32 @@ class Annexes {
     if ($update) $this->toXML();
     return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::VERSION.'/Annexes.xsd');
   }
+
+  /**
+   *
+   */
+  public static function read($filename) {
+    if (file_exists($filename)) {
+      $xml = new \DOMDocument(); $xml->load($filename);
+
+      $annexes = $xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annexes')->item(0);
+
+      if (!is_null($annexes)) {
+        $a = new self();
+        $a->_xml = new \DOMDocument('1.0', 'UTF-8');
+        $a->_xml->appendChild($a->_xml->importNode($annexes, TRUE));
+
+        if ($a->validate(FALSE)) {
+          $annotation = $annexes->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annotation');
+          if (!is_null($annotation)) { $a->annotation = array(); for ($i = 0; $i < $annotation->length; $i++) $a->annotation[] = \IRIX\Annexes\Annotation::readXMLElement($annotation->item($i)); }
+
+          return $a;
+        }
+      }
+    }
+
+    return FALSE;
+  }
 }
 
 /* ************************************************************************
@@ -105,6 +131,20 @@ class Annotation {
    */
   public function getXMLElement() {
     $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annotation')->item(0);
+  }
+
+  /**
+   *
+   */
+  public static function readXMLElement($domelement) {
+    $annotation = new self();
+
+    $title = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Title');
+    if (!is_null($annotation)) { $annotation->title = $title->item(0)->textContent; }
+
+    $annotation->text = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Text')->item(0)->textContent;
+
+    return $annotation;
   }
 }
 
