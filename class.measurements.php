@@ -103,3 +103,4 @@ class Measurements {
 namespace IRIX\Measurements;
 
 require('class.measurements.sample.php');
+require('class.measurements.doserate.php');

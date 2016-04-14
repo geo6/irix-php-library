@@ -9,6 +9,7 @@
 namespace IRIX;
 
 /**
+ * \IRIX\Measurements\DosRate\Measurement()
  * \IRIX\Measurements\Sample\Measurement()
  */
 class Background {
@@ -43,7 +44,8 @@ class Height {
 }
 
 /**
- * \IRIX\Measurements\Sample\Measurement()
+ * \IRIX\Measurements\DoseRate\Measurement()
+ * \IRIX\Measurements\Sample()
  */
 class LocationOffset {
   public $distance;
@@ -52,6 +54,7 @@ class LocationOffset {
 
 /**
  * \IRIX\Measurements\Sample\Measurement()
+ * \IRIX\Measurements\DoseRate()
  */
 class MeasuringPeriod {
   public $start_time;
@@ -75,6 +78,7 @@ class SamplingPeriod {
 }
 
 /**
+ * \IRIX\Measurements\DoseRate\Measurement()
  * \IRIX\Measurements\Sample\Measurement()
  */
 class Uncertainty {
@@ -85,6 +89,7 @@ class Uncertainty {
 }
 
 /**
+ * \IRIX\Measurements\DoseRate\Measurement()
  * \IRIX\Measurements\Sample\Measurement()
  */
 class Value {

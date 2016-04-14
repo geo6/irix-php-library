@@ -123,6 +123,13 @@ class Sample {
       $sample->location = \IRIX\Locations\Location::readXMLElement($location);
     }
 
+    $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'LocationOffset')->item(0);
+    if (!is_null($item)) {
+      $sample->location_offset = new \IRIX\LocationOffset();
+      $distance = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Distance')->item(0); if (!is_null($distance)) $sample->location_offset->distance = $distance->textContent;
+      $direction = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Direction')->item(0); if (!is_null($direction)) $sample->location_offset->direction = $direction->textContent;
+    }
+
     $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'ValueType')->item(0); if (!is_null($item)) $sample->value_type = $item->textContent;
 
     $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'SamplingDepth')->item(0);
