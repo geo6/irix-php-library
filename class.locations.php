@@ -112,7 +112,7 @@ class Location {
     $location->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
     $location->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
-    $location->setAttribute('id', $this->id);
+    if (!empty($this->id)) $location->setAttribute('id', $this->id);
 
     if (!is_null($this->name)) { $name = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Name', $this->name); $location->appendChild($name); }
     if (!is_null($this->geographic_coordinates)) {

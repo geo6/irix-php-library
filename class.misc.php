@@ -61,6 +61,14 @@ class MeasuringPeriod {
 /**
  * \IRIX\Measurements\Sample()
  */
+class SamplingDepth {
+  public $min_depth;
+  public $max_depth;
+}
+
+/**
+ * \IRIX\Measurements\Sample()
+ */
 class SamplingPeriod {
   public $start_time;
   public $end_time;
