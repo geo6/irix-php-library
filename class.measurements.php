@@ -1,0 +1,105 @@
+<?php
+/**
+ * IRIX PHP Library
+ * PHP Version 5.3+
+ * @author Jonathan Beliën <jbe@geo6.be>
+ * @copyright 2016 Jonathan Beliën
+ * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
+ */
+namespace IRIX;
+
+/**
+ * IRIX PHP Library - Measurements Section
+ * @package IRIX\Report
+ * @author Jonathan Beliën <jbe@geo6.be>
+ */
+class Measurements {
+  public $valid_at;
+  public $sample = NULL;
+  public $dose_rate = NULL;
+
+  private $_xml = NULL;
+
+  /**
+   *
+   */
+  public function toXML() {
+    $this->_xml = new \DOMDocument('1.0', 'UTF-8');
+    $this->_xml->formatOutput = \IRIX\Report::DEBUG;
+
+    $measurements = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'mon:Measurements'); $this->_xml->appendChild($measurements);
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:mon', 'http://www.iaea.org/2012/IRIX/Format/Measurements');
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:loc', 'http://www.iaea.org/2012/IRIX/Format/Locations');
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
+
+    $measurements->setAttribute('ValidAt', $this->valid_at);
+
+    if (!is_null($this->sample)) {
+      if (!is_array($this->sample)) $this->sample = array( $this->sample );
+      foreach ($this->sample as $s) { $measurements->appendChild($this->_xml->importNode($s->getXMLElement(), TRUE)); }
+    }
+
+    if (!is_null($this->dose_rate)) {
+      if (!is_array($this->dose_rate)) $this->dose_rate = array( $this->dose_rate );
+      foreach ($this->dose_rate as $dr) { $measurements->appendChild($this->_xml->importNode($dr->getXMLElement(), TRUE)); }
+    }
+
+    return $this->_xml;
+  }
+
+  /**
+   *
+   */
+  public function getXMLElement() {
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Measurements')->item(0);
+  }
+
+  /**
+   *
+   */
+  public function validate($update = TRUE) {
+    if ($update) $this->toXML();
+    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::VERSION.'/Measurements.xsd');
+  }
+
+  /**
+   *
+   */
+  public static function read($filename) {
+    if (file_exists($filename)) {
+      $xml = new \DOMDocument(); $xml->load($filename);
+
+      $measurements = $xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Measurements')->item(0);
+
+      if (!is_null($measurements)) {
+        $m = new self();
+        $m->_xml = new \DOMDocument('1.0', 'UTF-8');
+        $m->_xml->appendChild($m->_xml->importNode($measurements, TRUE));
+
+        if ($m->validate(FALSE)) {
+          $m->valid_at = $measurements->getAttribute('ValidAt');
+
+          $sample = $measurements->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Sample');
+          if ($sample->length > 0) { $m->sample = array(); for ($i = 0; $i < $sample->length; $i++) $m->sample[] = \IRIX\Measurements\Sample::readXMLElement($sample->item($i)); }
+
+          $dose_rate = $measurements->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'DoseRate');
+          if ($dose_rate->length > 0) { $m->dose_rate = array(); for ($i = 0; $i < $dose_rate->length; $i++) $m->dose_rate[] = \IRIX\Measurements\DoseRate::readXMLElement($dose_rate->item($i)); }
+
+          return $m;
+        }
+      } else {
+        return NULL;
+      }
+    }
+
+    return FALSE;
+  }
+}
+
+/**
+ *
+ */
+namespace IRIX\Measurements;
+
+require('class.measurements.sample.php');
