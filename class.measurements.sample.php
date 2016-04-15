@@ -10,7 +10,7 @@ namespace IRIX\Measurements;
 
 /**
  * IRIX PHP Library - Measurements Section
- * @package IRIX\Report
+ * @package IRIX\Report\Measurements
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class Sample {

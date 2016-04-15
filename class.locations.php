@@ -122,7 +122,7 @@ class Location {
       if (!is_null($this->geographic_coordinates->height)) {
         if (!is_array($this->geographic_coordinates->height)) $this->geographic_coordinates->height = array( $this->geographic_coordinates->height );
         foreach ($this->geographic_coordinates->height as $h) {
-          $_h = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Height', $h->height);
+          $_h = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Height', $h->value);
           $_h->setAttribute('Above', $h->above);
           $_h->setAttribute('Unit', 'm');
           $geographic_coordinates->appendChild($_h);
@@ -169,7 +169,7 @@ class Location {
       $height = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Height')->item(0);
       if (!is_null($height)) {
         $location->geographic_coordinates->height = new \IRIX\Height();
-        $location->geographic_coordinates->height->height = $height->textContent;
+        $location->geographic_coordinates->height->value = $height->textContent;
         $location->geographic_coordinates->height->above = $height->getAttribute('Above');
       }
     }

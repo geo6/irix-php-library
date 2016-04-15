@@ -10,7 +10,7 @@ namespace IRIX\Annexes;
 
 /**
  * IRIX PHP Library - Annexes Section
- * @package IRIX\Report
+ * @package IRIX\Report\Annexes
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class FileEnclosure {

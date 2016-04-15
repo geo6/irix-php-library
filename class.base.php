@@ -10,7 +10,7 @@ namespace IRIX\Base;
 
 /**
  * IRIX PHP Library - Address Container
- * @package IRIX\Base
+ * @package IRIX
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class Address {

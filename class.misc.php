@@ -9,7 +9,7 @@
 namespace IRIX;
 
 /**
- * \IRIX\Measurements\DosRate\Measurement()
+ * \IRIX\Measurements\DoseRate\Measurement()
  * \IRIX\Measurements\Sample\Measurement()
  */
 class Background {
@@ -40,7 +40,7 @@ class GeographicCoordinates {
  */
 class Height {
   public $above;
-  public $height;
+  public $value;
 }
 
 /**
@@ -82,7 +82,7 @@ class SamplingPeriod {
  * \IRIX\Measurements\Sample\Measurement()
  */
 class Uncertainty {
-  public $uncertainty;
+  public $value;
   public $unit;
   public $type = NULL;
   public $constraint = NULL;
