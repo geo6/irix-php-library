@@ -18,11 +18,11 @@ class Report {
   const DEBUG = TRUE;
 
   public $identification = NULL;
+  public $event_information = NULL;
   public $measurements = NULL;
   public $locations = NULL;
   public $annexes = NULL;
 
-  private $event_information = NULL;
   private $release = NULL;
   private $meteorology = NULL;
   private $consequences = NULL;
@@ -56,6 +56,7 @@ class Report {
     $this->_xml->appendChild($report);
 
     $report->appendChild($this->_xml->importNode($this->identification->getXMLElement(), TRUE));
+    if (!is_null($this->event_information)) $report->appendChild($this->_xml->importNode($this->event_information->getXMLElement(), TRUE));
     if (!is_null($this->measurements)) $report->appendChild($this->_xml->importNode($this->measurements->getXMLElement(), TRUE));
     if (!is_null($this->locations)) $report->appendChild($this->_xml->importNode($this->locations->getXMLElement(), TRUE));
     if (!is_null($this->annexes)) $report->appendChild($this->_xml->importNode($this->annexes->getXMLElement(), TRUE));
@@ -91,6 +92,7 @@ class Report {
 
       if ($r->validate(FALSE)) {
         $r->identification = \IRIX\Identification::read($filename);
+        $r->event_information = \IRIX\EventInformation::read($filename);
         $r->measurements = \IRIX\Measurements::read($filename);
         $r->locations = \IRIX\Locations::read($filename);
         $r->annexes = \IRIX\Annexes::read($filename);

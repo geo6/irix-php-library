@@ -9,8 +9,9 @@
 namespace IRIX;
 
 /**
- * \IRIX\Measurements\DoseRate\Measurement()
- * \IRIX\Measurements\Sample\Measurement()
+ * Used by :
+ * * \IRIX\Measurements\DoseRate\Measurement()
+ * * \IRIX\Measurements\Sample\Measurement()
  */
 class Background {
   public $value;
@@ -27,7 +28,17 @@ class Background {
 }
 
 /**
- * \IRIX\Locations\Location()
+ * Used by :
+ * * \IRIX\EventInformation()
+ */
+class DateAndTimeOfEvent {
+  public $value;
+  public $is_estimate = NULL;
+}
+
+/**
+ * Used by :
+ * * \IRIX\Locations\Location()
  */
 class GeographicCoordinates {
   public $latitude;
@@ -36,7 +47,8 @@ class GeographicCoordinates {
 }
 
 /**
- * \IRIX\GeographicCoordinates()
+ * Used by :
+ * * \IRIX\GeographicCoordinates()
  */
 class Height {
   public $above;
@@ -44,8 +56,9 @@ class Height {
 }
 
 /**
- * \IRIX\Measurements\DoseRate\Measurement()
- * \IRIX\Measurements\Sample()
+ * Used by :
+ * * \IRIX\Measurements\DoseRate\Measurement()
+ * * \IRIX\Measurements\Sample()
  */
 class LocationOffset {
   public $distance;
@@ -53,8 +66,9 @@ class LocationOffset {
 }
 
 /**
- * \IRIX\Measurements\Sample\Measurement()
- * \IRIX\Measurements\DoseRate()
+ * Used by :
+ * * \IRIX\Measurements\Sample\Measurement()
+ * * \IRIX\Measurements\DoseRate()
  */
 class MeasuringPeriod {
   public $start_time;
@@ -62,7 +76,8 @@ class MeasuringPeriod {
 }
 
 /**
- * \IRIX\Measurements\Sample()
+ * Used by :
+ * * \IRIX\Measurements\Sample()
  */
 class SamplingDepth {
   public $min_depth;
@@ -70,7 +85,8 @@ class SamplingDepth {
 }
 
 /**
- * \IRIX\Measurements\Sample()
+ * Used by :
+ * * \IRIX\Measurements\Sample()
  */
 class SamplingPeriod {
   public $start_time;
@@ -78,8 +94,9 @@ class SamplingPeriod {
 }
 
 /**
- * \IRIX\Measurements\DoseRate\Measurement()
- * \IRIX\Measurements\Sample\Measurement()
+ * Used by :
+ * * \IRIX\Measurements\DoseRate\Measurement()
+ * * \IRIX\Measurements\Sample\Measurement()
  */
 class Uncertainty {
   public $value;
@@ -89,8 +106,9 @@ class Uncertainty {
 }
 
 /**
- * \IRIX\Measurements\DoseRate\Measurement()
- * \IRIX\Measurements\Sample\Measurement()
+ * Used by :
+ * * \IRIX\Measurements\DoseRate\Measurement()
+ * * \IRIX\Measurements\Sample\Measurement()
  */
 class Value {
   public $value;
