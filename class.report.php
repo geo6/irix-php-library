@@ -23,13 +23,13 @@ class Report {
   public $locations = NULL;
   public $annexes = NULL;
 
-  private $release = NULL;
-  private $meteorology = NULL;
-  private $consequences = NULL;
-  private $response_actions = NULL;
-  private $medical_information = NULL;
-  private $media_information = NULL;
-  private $requests = NULL;
+  public $release = NULL;
+  public $meteorology = NULL;
+  public $consequences = NULL;
+  public $response_actions = NULL;
+  public $medical_information = NULL;
+  public $media_information = NULL;
+  public $requests = NULL;
 
   private $_xml = NULL;
 
