@@ -14,8 +14,9 @@ namespace IRIX;
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class Report {
-  const VERSION = '1.0';
-  const DEBUG = TRUE;
+  const _VERSION = '1.0';
+  const _PRETTY = TRUE;
+  const _NAMESPACE = 'http://www.iaea.org/2012/IRIX/Format';
 
   public $identification = NULL;
   public $event_information = NULL;
@@ -45,14 +46,14 @@ class Report {
    */
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
-    $this->_xml->formatOutput = self::DEBUG;
+    $this->_xml->formatOutput = self::_PRETTY;
 
-    $report = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format', 'irix:Report');
-    $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
-    $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:id', 'http://www.iaea.org/2012/IRIX/Format/Identification');
-    if (!is_null($this->locations)) $report->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:loc', 'http://www.iaea.org/2012/IRIX/Format/Locations');
+    $report = $this->_xml->createElementNS(self::_NAMESPACE, 'irix:Report');
+    $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:base', self::_NAMESPACE.'/Base');
+    $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:id', self::_NAMESPACE.'/Identification');
+    if (!is_null($this->locations)) $report->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:loc', self::_NAMESPACE.'/Locations');
     $report->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:html', 'http://www.w3.org/1999/xhtml');
-    $report->setAttribute('version', self::VERSION);
+    $report->setAttribute('version', self::_VERSION);
     $this->_xml->appendChild($report);
 
     $report->appendChild($this->_xml->importNode($this->identification->getXMLElement(), TRUE));
@@ -69,7 +70,7 @@ class Report {
    */
   public function validate($update = TRUE) {
     if ($update) $this->toXML();
-    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.self::VERSION.'/IRIX.xsd');
+    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.self::_VERSION.'/IRIX.xsd');
   }
 
   /**

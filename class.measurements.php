@@ -25,12 +25,12 @@ class Measurements {
    */
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
-    $this->_xml->formatOutput = \IRIX\Report::DEBUG;
+    $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
 
-    $measurements = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'mon:Measurements'); $this->_xml->appendChild($measurements);
-    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:mon', 'http://www.iaea.org/2012/IRIX/Format/Measurements');
-    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:loc', 'http://www.iaea.org/2012/IRIX/Format/Locations');
-    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
+    $measurements = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'mon:Measurements'); $this->_xml->appendChild($measurements);
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:mon', \IRIX\Report::_NAMESPACE.'/Measurements');
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:loc', \IRIX\Report::_NAMESPACE.'/Locations');
+    $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
     $measurements->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
     $measurements->setAttribute('ValidAt', $this->valid_at);
@@ -52,7 +52,7 @@ class Measurements {
    *
    */
   public function getXMLElement() {
-    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Measurements')->item(0);
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements')->item(0);
   }
 
   /**
@@ -60,7 +60,7 @@ class Measurements {
    */
   public function validate($update = TRUE) {
     if ($update) $this->toXML();
-    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::VERSION.'/Measurements.xsd');
+    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/Measurements.xsd');
   }
 
   /**
@@ -70,7 +70,7 @@ class Measurements {
     if (file_exists($filename)) {
       $xml = new \DOMDocument(); $xml->load($filename);
 
-      $measurements = $xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Measurements')->item(0);
+      $measurements = $xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements')->item(0);
 
       if (!is_null($measurements)) {
         $m = new self();
@@ -80,10 +80,10 @@ class Measurements {
         if ($m->validate(FALSE)) {
           $m->valid_at = $measurements->getAttribute('ValidAt');
 
-          $sample = $measurements->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'Sample');
+          $sample = $measurements->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Sample');
           if ($sample->length > 0) { $m->sample = array(); for ($i = 0; $i < $sample->length; $i++) $m->sample[] = \IRIX\Measurements\Sample::readXMLElement($sample->item($i)); }
 
-          $dose_rate = $measurements->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Measurements', 'DoseRate');
+          $dose_rate = $measurements->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'DoseRate');
           if ($dose_rate->length > 0) { $m->dose_rate = array(); for ($i = 0; $i < $dose_rate->length; $i++) $m->dose_rate[] = \IRIX\Measurements\DoseRate::readXMLElement($dose_rate->item($i)); }
 
           return $m;

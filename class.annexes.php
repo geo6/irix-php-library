@@ -25,11 +25,11 @@ class Annexes {
    */
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
-    $this->_xml->formatOutput = \IRIX\Report::DEBUG;
+    $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
 
-    $annexes = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'annex:Annexes'); $this->_xml->appendChild($annexes);
-    $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:annex', 'http://www.iaea.org/2012/IRIX/Format/Annexes');
-    $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
+    $annexes = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'annex:Annexes'); $this->_xml->appendChild($annexes);
+    $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:annex', \IRIX\Report::_NAMESPACE.'/Annexes');
+    $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
     $annexes->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
     if (!is_null($this->annotation)) {
@@ -54,7 +54,7 @@ class Annexes {
    *
    */
   public function getXMLElement() {
-    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annexes')->item(0);
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Annexes')->item(0);
   }
 
   /**
@@ -62,7 +62,7 @@ class Annexes {
    */
   public function validate($update = TRUE) {
     if ($update) $this->toXML();
-    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::VERSION.'/Annexes.xsd');
+    return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/Annexes.xsd');
   }
 
   /**
@@ -72,7 +72,7 @@ class Annexes {
     if (file_exists($filename)) {
       $xml = new \DOMDocument(); $xml->load($filename);
 
-      $annexes = $xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annexes')->item(0);
+      $annexes = $xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Annexes')->item(0);
 
       if (!is_null($annexes)) {
         $a = new self();
@@ -80,10 +80,10 @@ class Annexes {
         $a->_xml->appendChild($a->_xml->importNode($annexes, TRUE));
 
         if ($a->validate(FALSE)) {
-          $annotation = $annexes->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annotation');
+          $annotation = $annexes->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Annotation');
           if ($annotation->length > 0) { $a->annotation = array(); for ($i = 0; $i < $annotation->length; $i++) $a->annotation[] = \IRIX\Annexes\Annotation::readXMLElement($annotation->item($i)); }
 
-          $file_enclosure = $annexes->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'FileEnclosure');
+          $file_enclosure = $annexes->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'FileEnclosure');
           if ($file_enclosure->length > 0) { $a->file_enclosure = array(); for ($i = 0; $i < $file_enclosure->length; $i++) $a->file_enclosure[] = \IRIX\Annexes\FileEnclosure::readXMLElement($file_enclosure->item($i)); }
 
           return $a;

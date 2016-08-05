@@ -24,15 +24,15 @@ class Annotation {
    */
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
-    $this->_xml->formatOutput = \IRIX\Report::DEBUG;
+    $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
 
-    $annotation = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annotation'); $this->_xml->appendChild($annotation);
-    $annotation->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', 'http://www.iaea.org/2012/IRIX/Format/Base');
+    $annotation = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Annotation'); $this->_xml->appendChild($annotation);
+    $annotation->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
     $annotation->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
-    if (!is_null($this->title)) $title = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Title', $this->title); $annotation->appendChild($title);
+    if (!is_null($this->title)) $title = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Title', $this->title); $annotation->appendChild($title);
 
-    $text = $this->_xml->createElementNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Text', $this->text); $annotation->appendChild($text);
+    $text = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Text', $this->text); $annotation->appendChild($text);
 
     return $this->_xml;
   }
@@ -41,7 +41,7 @@ class Annotation {
    *
    */
   public function getXMLElement() {
-    $this->toXML(); return $this->_xml->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Annotation')->item(0);
+    $this->toXML(); return $this->_xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Annotation')->item(0);
   }
 
   /**
@@ -50,9 +50,9 @@ class Annotation {
   public static function readXMLElement($domelement) {
     $annotation = new self();
 
-    $title = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Title')->item(0); if (!is_null($annotation)) { $annotation->title = $title->textContent; }
+    $title = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Title')->item(0); if (!is_null($annotation)) { $annotation->title = $title->textContent; }
 
-    $annotation->text = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Annexes', 'Text')->item(0)->textContent;
+    $annotation->text = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Annexes', 'Text')->item(0)->textContent;
 
     return $annotation;
   }
