@@ -162,9 +162,9 @@ class Location {
 
     $item = $domelement->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'GeographicCoordinates')->item(0);
     if (!is_null($item)) {
-      $location->geographic_coordinates = new \IRIX\GeographicCoordinates();
-      $location->geographic_coordinates->latitude = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Latitude')->item(0)->textContent;
-      $location->geographic_coordinates->longitude = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Longitude')->item(0)->textContent;
+      $latitude = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Latitude')->item(0)->textContent;
+      $longitude = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Longitude')->item(0)->textContent;
+      $location->geographic_coordinates = new \IRIX\GeographicCoordinates($latitude, $longitude);
 
       $height = $item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Locations', 'Height')->item(0);
       if (!is_null($height)) {
