@@ -34,6 +34,14 @@ class Background {
 class DateAndTimeOfEvent {
   public $value;
   public $is_estimate = NULL;
+
+  /**
+   *
+   */
+  public function __construct($datetime, $estimated = NULL) {
+    $this->value = gmdate('Y-m-d\TH:i:s\Z', strtotime($datetime));
+    $this->is_estimate = $estimated;
+  }
 }
 
 /**
@@ -44,6 +52,15 @@ class GeographicCoordinates {
   public $latitude;
   public $longitude;
   public $height = NULL;
+
+  /**
+   *
+   */
+  public function __construct($lat, $lng, $height = NULL) {
+    $this->latitude = $lat;
+    $this->longitude = $lng;
+    $this->height = $height;
+  }
 }
 
 /**
