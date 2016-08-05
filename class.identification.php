@@ -134,8 +134,6 @@ class Identification {
           $i->report_context            = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ReportContext'        )->item(0)->textContent;
           $i->report_uuid               = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ReportUUID'           )->item(0)->textContent;
 
-          $i->identifications = \IRIX\Identification\Identifications::readXMLElement($identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Identifications')->item(0));
-
           $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'SequenceNumber'          )->item(0); if (!is_null($item)) $i->sequence_number            = $item->textContent;
           $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Follows'                 )->item(0); if (!is_null($item)) $i->follows                    = $item->textContent;
           $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Revokes'                 )->item(0); if (!is_null($item)) $i->revokes                    = $item->textContent;
@@ -147,7 +145,21 @@ class Identification {
           $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'ContactPerson'           )->item(0); if (!is_null($item)) $i->contact_person             = $item->textContent;
           $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'AdditionalInformationURL')->item(0); if (!is_null($item)) $i->additional_information_url = $item->textContent;
 
-          $i->event_identifications = NULL;
+          $item = $identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'EventIdentifications')->item(0);
+          if (!is_null($item)) {
+            $i->event_identifications = array();
+            foreach ($item->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'EventIdentification') as $ei) {
+              if ($ei->hasAttribute('Organisation')) {
+                $i->event_identifications[] = array( $ei->textContent, $ei->getAttribute('Organisation') );
+              } else {
+                $i->event_identifications[] = $ei->textContent;
+              }
+            }
+          } else {
+            $i->event_identifications = NULL;
+          }
+
+          $i->identifications = \IRIX\Identification\Identifications::readXMLElement($identification->getElementsByTagNameNS('http://www.iaea.org/2012/IRIX/Format/Identification', 'Identifications')->item(0));
 
           return $i;
         }
