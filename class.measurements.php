@@ -23,6 +23,13 @@ class Measurements {
   /**
    *
    */
+  public function __construct() {
+    $this->valid_at = gmdate('Y-m-d\TH:i:s\Z');
+  }
+
+  /**
+   *
+   */
   public function toXML() {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
     $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
