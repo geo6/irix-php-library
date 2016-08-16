@@ -14,7 +14,7 @@ namespace IRIX;
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class Locations {
-  public $location = array();
+  public $locations = array();
 
   private $_xml = NULL;
 
@@ -30,9 +30,9 @@ class Locations {
     $locations->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
     $locations->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
-    if (!is_null($this->location)) {
-      if (!is_array($this->location)) $this->location = array( $this->location );
-      foreach ($this->location as $l) { $locations->appendChild($this->_xml->importNode($l->getXMLElement(), TRUE)); }
+    if (!is_null($this->locations)) {
+      if (!is_array($this->locations)) $this->locations = array( $this->locations );
+      foreach ($this->locations as $l) { $locations->appendChild($this->_xml->importNode($l->getXMLElement(), TRUE)); }
     }
 
     return $this->_xml;
