@@ -3,9 +3,9 @@ function IRIXAutoload($classname) {
   list($namespace, $class) = explode('\\', $classname);
   $filename = __DIR__.'/class.'.strtolower($class).'.php';
   if (file_exists($filename)) {
-    if (is_readable($filename)) { require $filename; }
+    if (is_readable($filename)) { require_once($filename); }
   } else {
-    require 'class.misc.php';
+    require_oncde('class.misc.php');
   }
 }
 
