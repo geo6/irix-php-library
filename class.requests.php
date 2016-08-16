@@ -2,8 +2,8 @@
 /**
  * IRIX PHP Library
  * PHP Version 5.3+
- * @author Jonathan Beliën <jbe@geo6.be>
- * @copyright 2016 Jonathan Beliën
+ * @author Jonathan BeliÃ«n <jbe@geo6.be>
+ * @copyright 2016 Jonathan BeliÃ«n
  * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
  */
 namespace IRIX;
@@ -11,7 +11,7 @@ namespace IRIX;
 /**
  * IRIX PHP Library - Requests Section
  * @package IRIX\Report
- * @author Jonathan Beliën <jbe@geo6.be>
+ * @author Jonathan BeliÃ«n <jbe@geo6.be>
  */
 class Requests {
   public $requests = array();
@@ -215,7 +215,7 @@ class Response {
 
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'ResponseText')->item(0); if (!is_null($item)) $response->response_text = $item->textContent;
 
-    return $source;
+    return $response;
   }
 }
 
@@ -266,15 +266,15 @@ class RequestReference {
    *
    */
   public static function readXMLElement($domelement) {
-    $response = new self();
+    $request_reference = new self();
 
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'ResponseUUID')->item(0); if (!is_null($item)) $response->response_uuid = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestingOrganisation')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'DateAndTimeOfRequest')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestUUID')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'TypeOfRequest')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestSubject')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestText')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
 
-    $r = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestReference');
-    for ($i = 0; $i < $r->length; $i++) $response->request_reference[] = \IRIX\Request\Request\Response\RequestReference::readXMLElement($r->item($i));
-
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'ResponseText')->item(0); if (!is_null($item)) $response->response_text = $item->textContent;
-
-    return $source;
+    return $request_reference;
   }
 }
