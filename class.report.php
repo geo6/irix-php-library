@@ -18,10 +18,12 @@ class Report {
   const _PRETTY = TRUE;
   const _NAMESPACE = 'http://www.iaea.org/2012/IRIX/Format';
 
-  public $identification = NULL;
+  public $identification;
+
   public $event_information = NULL;
   public $measurements = NULL;
   public $locations = NULL;
+  public $requests = NULL;
   public $annexes = NULL;
 
   public $release = NULL;
@@ -30,7 +32,6 @@ class Report {
   public $response_actions = NULL;
   public $medical_information = NULL;
   public $media_information = NULL;
-  public $requests = NULL;
 
   private $_xml = NULL;
 
@@ -60,6 +61,7 @@ class Report {
     if (!is_null($this->event_information)) $report->appendChild($this->_xml->importNode($this->event_information->getXMLElement(), TRUE));
     if (!is_null($this->measurements)) $report->appendChild($this->_xml->importNode($this->measurements->getXMLElement(), TRUE));
     if (!is_null($this->locations)) $report->appendChild($this->_xml->importNode($this->locations->getXMLElement(), TRUE));
+    if (!is_null($this->requests)) $report->appendChild($this->_xml->importNode($this->requests->getXMLElement(), TRUE));
     if (!is_null($this->annexes)) $report->appendChild($this->_xml->importNode($this->annexes->getXMLElement(), TRUE));
 
     return $this->_xml->saveXML();
@@ -96,6 +98,7 @@ class Report {
         $r->event_information = \IRIX\EventInformation::read($filename);
         $r->measurements = \IRIX\Measurements::read($filename);
         $r->locations = \IRIX\Locations::read($filename);
+        $r->requests = \IRIX\Requests::read($filename);
         $r->annexes = \IRIX\Annexes::read($filename);
 
         return $r;
