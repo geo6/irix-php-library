@@ -36,15 +36,15 @@ class FileEnclosure {
   /**
    *
    */
-  public function setFile($filename) {
-    if (file_exists($filename)) {
-      $this->file_size = filesize($filename);
-      $this->enclosed_object = chunk_split(base64_encode(file_get_contents($filename)));
-      $finfo = finfo_open(); $this->mime_type = finfo_file($finfo, $filename, FILEINFO_MIME_TYPE);
+  public function setFile($file, $filename = NULL) {
+    if (file_exists($file)) {
+      $this->file_size = filesize($file);
+      $this->enclosed_object = chunk_split(base64_encode(file_get_contents($file)));
+      $finfo = finfo_open(); $this->mime_type = finfo_file($finfo, $file, FILEINFO_MIME_TYPE);
 
-      $this->file_name = basename($filename);
-      $this->file_date_and_time = gmdate('Y-m-d\TH:i:s\Z', filemtime($filename));
-      $this->file_hash = sha1_file($filename);
+      $this->file_name = (!is_null($filename) ? $filename : basename($file));
+      $this->file_date_and_time = gmdate('Y-m-d\TH:i:s\Z', filemtime($file));
+      $this->file_hash = sha1_file($file);
     }
     return FALSE;
   }
@@ -66,7 +66,7 @@ class FileEnclosure {
    */
   public function getFile() {
     $dir = sys_get_temp_dir().'/irix'; if (!file_exists($dir) || !is_dir($dir)) mkdir($dir);
-    $fname = $dir.'/'.$this->file_name;
+    $fname = (!is_null($this->file_name) ? $dir.'/'.$this->file_name : tempnam($dir, 'irix'));
     file_put_contents($fname, base64_decode($this->enclosed_object));
     return $fname;
   }
