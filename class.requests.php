@@ -14,7 +14,8 @@ namespace IRIX;
  * @author Jonathan Beliën <jbe@geo6.be>
  */
 class Requests {
-  public $requests = array();
+  public $request = array();
+  public $response = array();
 
   private $_xml = NULL;
 
@@ -30,9 +31,13 @@ class Requests {
     $requests->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
     $requests->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
-    if (!is_null($this->requests)) {
-      if (!is_array($this->requests)) $this->requests = array( $this->requests );
-      foreach ($this->requests as $r) { $requests->appendChild($this->_xml->importNode($r->getXMLElement(), TRUE)); }
+    if (!is_null($this->request)) {
+      if (!is_array($this->request)) $this->request = array( $this->request );
+      foreach ($this->request as $r) { $requests->appendChild($this->_xml->importNode($r->getXMLElement(), TRUE)); }
+    }
+    if (!is_null($this->response)) {
+      if (!is_array($this->response)) $this->response = array( $this->response );
+      foreach ($this->response as $r) { $requests->appendChild($this->_xml->importNode($r->getXMLElement(), TRUE)); }
     }
 
     return $this->_xml;
@@ -69,7 +74,10 @@ class Requests {
 
         if ($r->validate(FALSE)) {
           $request = $requests->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'Request');
-          if ($request->length > 0) { $r->requests = array(); for ($i = 0; $i < $request->length; $i++) $r->requests[] = \IRIX\Requests\Request::readXMLElement($request->item($i)); }
+          if ($request->length > 0) { $r->request = array(); for ($i = 0; $i < $request->length; $i++) $r->request[] = \IRIX\Requests\Request::readXMLElement($request->item($i)); }
+
+          $response = $requests->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'Response');
+          if ($response->length > 0) { $r->response = array(); for ($i = 0; $i < $response->length; $i++) $r->response[] = \IRIX\Requests\Response::readXMLElement($response->item($i)); }
 
           return $r;
         }
@@ -160,8 +168,6 @@ class Request {
 /* ************************************************************************
  *
  */
-namespace IRIX\Requests\Request;
-
 class Response {
   public $response_uuid;
   public $request_reference = array();
@@ -211,7 +217,7 @@ class Response {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'ResponseUUID')->item(0); if (!is_null($item)) $response->response_uuid = $item->textContent;
 
     $r = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestReference');
-    for ($i = 0; $i < $r->length; $i++) $response->request_reference[] = \IRIX\Request\Request\Response\RequestReference::readXMLElement($r->item($i));
+    for ($i = 0; $i < $r->length; $i++) $response->request_reference[] = \IRIX\Requests\Response\RequestReference::readXMLElement($r->item($i));
 
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'ResponseText')->item(0); if (!is_null($item)) $response->response_text = $item->textContent;
 
@@ -222,7 +228,7 @@ class Response {
 /* ************************************************************************
  *
  */
-namespace IRIX\Requests\Request\Response;
+namespace IRIX\Requests\Response;
 
 class RequestReference {
   public $requesting_organisation = NULL;
@@ -245,12 +251,12 @@ class RequestReference {
 
     $request_reference = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestReference'); $this->_xml->appendChild($request_reference);
 
-    if (!is_null($requesting_organisation)) $requesting_organisation = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestingOrganisation', $this->requesting_organisation); $request_reference->appendChild($requesting_organisation);
-    if (!is_null($date_and_time_of_request)) $date_and_time_of_request = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'DateAndTimeOfRequest', $this->date_and_time_of_request); $request_reference->appendChild($date_and_time_of_request);
-    if (!is_null($request_uuid)) $request_uuid = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestUUID', $this->request_uuid); $request_reference->appendChild($request_uuid);
-    if (!is_null($type_of_request)) $type_of_request = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'TypeOfRequest', $this->type_of_request); $request_reference->appendChild($type_of_request);
-    if (!is_null($request_subject)) $request_subject = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestSubject', $this->request_subject); $request_reference->appendChild($request_subject);
-    if (!is_null($request_text)) $request_text = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestText', $this->request_text); $request_reference->appendChild($request_text);
+  if (!is_null($this->requesting_organisation)) { $requesting_organisation = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestingOrganisation', $this->requesting_organisation); $request_reference->appendChild($requesting_organisation); }
+    if (!is_null($this->date_and_time_of_request)) { $date_and_time_of_request = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'DateAndTimeOfRequest', $this->date_and_time_of_request); $request_reference->appendChild($date_and_time_of_request); }
+    if (!is_null($this->request_uuid)) { $request_uuid = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestUUID', $this->request_uuid); $request_reference->appendChild($request_uuid); }
+    if (!is_null($this->type_of_request)) { $type_of_request = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'TypeOfRequest', $this->type_of_request); $request_reference->appendChild($type_of_request); }
+    if (!is_null($this->request_subject)) { $request_subject = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestSubject', $this->request_subject); $request_reference->appendChild($request_subject); }
+    if (!is_null($this->request_text)) { $request_text = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestText', $this->request_text); $request_reference->appendChild($request_text); }
 
     return $this->_xml;
   }
@@ -269,11 +275,11 @@ class RequestReference {
     $request_reference = new self();
 
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestingOrganisation')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'DateAndTimeOfRequest')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestUUID')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'TypeOfRequest')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestSubject')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestText')->item(0); if (!is_null($item)) $request_reference->requesting_organisation = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'DateAndTimeOfRequest')->item(0); if (!is_null($item)) $request_reference->date_and_time_of_request = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestUUID')->item(0); if (!is_null($item)) $request_reference->request_uuid = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'TypeOfRequest')->item(0); if (!is_null($item)) $request_reference->type_of_request = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestSubject')->item(0); if (!is_null($item)) $request_reference->request_subject = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Requests', 'RequestText')->item(0); if (!is_null($item)) $request_reference->request_text = $item->textContent;
 
     return $request_reference;
   }
