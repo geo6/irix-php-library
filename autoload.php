@@ -5,7 +5,7 @@ function IRIXAutoload($classname) {
   if (file_exists($filename)) {
     if (is_readable($filename)) { require_once($filename); }
   } else {
-    require_oncde('class.misc.php');
+    require_once('class.misc.php');
   }
 }
 
