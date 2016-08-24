@@ -145,7 +145,8 @@ class Sample {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'SampleTreatmentDescription')->item(0); if (!is_null($item)) $sample->sample_treatment_description = $item->textContent;
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Description')->item(0); if (!is_null($item)) $sample->description = $item->textContent;
 
-    $measurements = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements');
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements')->item(0);
+    $measurements = $item->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurement');
     if ($measurements->length > 0) { $sample->measurements = array(); for ($i = 0; $i < $measurements->length; $i++) $sample->measurements[] = \IRIX\Measurements\Sample\Measurement::readXMLElement($measurements->item($i)); }
 
     return $sample;
@@ -195,7 +196,7 @@ class Measurement {
     $measurement->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
 
     if (!is_null($this->nuclide)) { $nuclide = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Nuclide', $this->nuclide); $measurement->appendChild($nuclide); }
-    if (!is_null($this->nuclide_list)) { $nuclide_list = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'NuclideList', $this->nuclide_list); $measurement->appendChild($nuclide_list); }
+    if (!is_null($this->nuclide_list)) { $nuclide_list = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'NuclideList', implode(' ', $this->nuclide_list)); $measurement->appendChild($nuclide_list); }
     if (!is_null($this->nuclide_combination)) { $nuclide_combination = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'NuclideCombination', $this->nuclide_combination); $measurement->appendChild($nuclide_combination); }
     if (!is_null($this->nuclide_description)) { $nuclide_description = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'NuclideDescription', $this->nuclide_description); $measurement->appendChild($nuclide_description); }
 

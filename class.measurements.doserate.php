@@ -83,7 +83,8 @@ class DoseRate {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'ApparatusTypeDescription')->item(0); if (!is_null($item)) $dose_rate->apparatus_type_description = $item->textContent;
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Description')->item(0); if (!is_null($item)) $dose_rate->description = $item->textContent;
 
-    $measurements = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements');
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurements')->item(0);
+    $measurements = $item->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Measurements', 'Measurement');
     if ($measurements->length > 0) { $dose_rate->measurements = array(); for ($i = 0; $i < $measurements->length; $i++) $dose_rate->measurements[] = \IRIX\Measurements\DoseRate\Measurement::readXMLElement($measurements->item($i)); }
 
     return $dose_rate;
