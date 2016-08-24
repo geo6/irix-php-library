@@ -62,7 +62,7 @@ class Address {
     $address->country      = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Country'     )->item(0)->textContent;
 
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Postbox')->item(0); if (!is_null($item)) $address->postbox = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Street' )->item(0); if (!is_null($item)) $street->address  = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Street' )->item(0); if (!is_null($item)) $address->street  = $item->textContent;
 
     return $address;
   }
@@ -134,7 +134,7 @@ class OrganisationContactInfo {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Address'    )->item(0); if (!is_null($item)) $organisation_contact_info->address      = \IRIX\Base\Address::readXMLElement($item);
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'PhoneNumber')->item(0); if (!is_null($item)) $organisation_contact_info->phone_number = $item->textContent;
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'FaxNumber'  )->item(0); if (!is_null($item)) $organisation_contact_info->fax_number   = $item->textContent;
-    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Description')->item(0); if (!is_null($item)) $organisation_contact_info->web_address  = $item->textContent;
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'Description')->item(0); if (!is_null($item)) $organisation_contact_info->description  = $item->textContent;
 
     return $organisation_contact_info;
   }
