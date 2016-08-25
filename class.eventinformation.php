@@ -230,6 +230,8 @@ class ObjectInvolved {
     $reactor_characteristics = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'ReactorCharacteristics')->item(0);
     if (!is_null($reactor_characteristics)) { $object_involved->reactor_characteristics = \IRIX\EventInformation\ObjectInvolved\ReactorCharacteristics::readXMLElement($reactor_characteristics); }
 
+    $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'Description')->item(0); if (!is_null($item)) $object_involved->description = $item->textContent;
+
     return $object_involved;
   }
 }
@@ -514,7 +516,7 @@ class EmergencyClassification {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'DateAndTimeOfDeclaration')->item(0); if (!is_null($item)) $emergency_classification->date_and_time_of_declaration = $item->textContent;
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'BasisForDeclaration')->item(0); if (!is_null($item)) $emergency_classification->basis_for_declaration = $item->textContent;
 
-    return $reactor_characteristics;
+    return $emergency_classification;
   }
 }
 
@@ -746,8 +748,8 @@ class INESClassification {
     $this->_xml = new \DOMDocument('1.0', 'UTF-8');
 
     $ines_classification = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'INESClassification'); $this->_xml->appendChild($ines_classification);
-    $ines_level = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'INESLevel', $this->name); $ines_classification->appendChild($ines_level);
-    $status_of_classification = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'StatusOfClassification', $this->name); $ines_classification->appendChild($status_of_classification);
+    $ines_level = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'INESLevel', $this->ines_level); $ines_classification->appendChild($ines_level);
+    $status_of_classification = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'StatusOfClassification', $this->status_of_classification); $ines_classification->appendChild($status_of_classification);
     if (!is_null($this->date_and_time_of_classification)) { $date_and_time_of_classification = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'DateAndTimeOfClassification', $this->date_and_time_of_classification); $ines_classification->appendChild($date_and_time_of_classification); }
     if (!is_null($this->basis_for_classification)) { $basis_for_classification = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'BasisForClassification', $this->basis_for_classification); $ines_classification->appendChild($basis_for_classification); }
 
@@ -772,6 +774,6 @@ class INESClassification {
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'DateAndTimeOfClassification')->item(0); if (!is_null($item)) $ines_classification->date_and_time_of_classification = $item->textContent;
     $item = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'BasisForClassification')->item(0); if (!is_null($item)) $ines_classification->basis_for_classification = $item->textContent;
 
-    return $object_involved;
+    return $ines_classification;
   }
 }
