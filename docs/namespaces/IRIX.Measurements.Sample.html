@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>IRIX PHP Library</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">IRIX PHP Library</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/IRIX.html">\IRIX</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">449</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-553911323"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-553911323" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-241522401"></a>
+                                <a href="../namespaces/IRIX.html" style="margin-left: 30px; padding-left: 0">IRIX</a>
+            </div>
+            <div id="namespace-241522401" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1575827872"></a>
+                                <a href="../namespaces/IRIX.Annexes.html" style="margin-left: 30px; padding-left: 0">Annexes</a>
+            </div>
+            <div id="namespace-1575827872" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Annexes.Annotation.html">Annotation</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Annexes.FileEnclosure.html">FileEnclosure</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Annexes.Signature.html">Signature</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1149169340"></a>
+                                <a href="../namespaces/IRIX.Base.html" style="margin-left: 30px; padding-left: 0">Base</a>
+            </div>
+            <div id="namespace-1149169340" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Base.Address.html">Address</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Base.OrganisationContactInfo.html">OrganisationContactInfo</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Base.PersonContactInfo.html">PersonContactInfo</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-145544730"></a>
+                                <a href="../namespaces/IRIX.EventInformation.html" style="margin-left: 30px; padding-left: 0">EventInformation</a>
+            </div>
+            <div id="namespace-145544730" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-682536857"></a>
+                                <a href="../namespaces/IRIX.EventInformation.ObjectInvolved.html" style="margin-left: 30px; padding-left: 0">ObjectInvolved</a>
+            </div>
+            <div id="namespace-682536857" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1111740584"></a>
+                                <a href="../namespaces/IRIX.EventInformation.ObjectInvolved.SourceCharacteristics.html" style="margin-left: 30px; padding-left: 0">SourceCharacteristics</a>
+            </div>
+            <div id="namespace-1111740584" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-878980617"></a>
+                                <a href="../namespaces/IRIX.EventInformation.ObjectInvolved.SourceCharacteristics.Source.html" style="margin-left: 30px; padding-left: 0">Source</a>
+            </div>
+            <div id="namespace-878980617" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.ObjectInvolved.SourceCharacteristics.Source.Nuclide.html">Nuclide</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.ObjectInvolved.SourceCharacteristics.Source.html">Source</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.ObjectInvolved.ReactorCharacteristics.html">ReactorCharacteristics</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.ObjectInvolved.SourceCharacteristics.html">SourceCharacteristics</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1993447816"></a>
+                                <a href="../namespaces/IRIX.EventInformation.PlantStatus.html" style="margin-left: 30px; padding-left: 0">PlantStatus</a>
+            </div>
+            <div id="namespace-1993447816" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1806080472"></a>
+                                <a href="../namespaces/IRIX.EventInformation.PlantStatus.CoreState.html" style="margin-left: 30px; padding-left: 0">CoreState</a>
+            </div>
+            <div id="namespace-1806080472" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.PlantStatus.CoreState.Criticality.html">Criticality</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.PlantStatus.CoreState.SevereDamageToFuel.html">SevereDamageToFuel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.PlantStatus.CoreState.html">CoreState</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.EventInformation.EmergencyClassification.html">EmergencyClassification</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.INESClassification.html">INESClassification</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.ObjectInvolved.html">ObjectInvolved</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.PlantStatus.html">PlantStatus</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-452306341"></a>
+                                <a href="../namespaces/IRIX.Identification.html" style="margin-left: 30px; padding-left: 0">Identification</a>
+            </div>
+            <div id="namespace-452306341" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Identification.Identifications.html">Identifications</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-155699693"></a>
+                                <a href="../namespaces/IRIX.Locations.html" style="margin-left: 30px; padding-left: 0">Locations</a>
+            </div>
+            <div id="namespace-155699693" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Locations.Location.html">Location</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1850206292"></a>
+                                <a href="../namespaces/IRIX.Measurements.html" style="margin-left: 30px; padding-left: 0">Measurements</a>
+            </div>
+            <div id="namespace-1850206292" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1940786980"></a>
+                                <a href="../namespaces/IRIX.Measurements.DoseRate.html" style="margin-left: 30px; padding-left: 0">DoseRate</a>
+            </div>
+            <div id="namespace-1940786980" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Measurements.DoseRate.Measurement.html">Measurement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-689750340"></a>
+                                <a href="../namespaces/IRIX.Measurements.Sample.html" style="margin-left: 30px; padding-left: 0">Sample</a>
+            </div>
+            <div id="namespace-689750340" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Measurements.Sample.Measurement.html">Measurement</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Measurements.DoseRate.html">DoseRate</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Measurements.Sample.html">Sample</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-828701137"></a>
+                                <a href="../namespaces/IRIX.Requests.html" style="margin-left: 30px; padding-left: 0">Requests</a>
+            </div>
+            <div id="namespace-828701137" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1046075602"></a>
+                                <a href="../namespaces/IRIX.Requests.Response.html" style="margin-left: 30px; padding-left: 0">Response</a>
+            </div>
+            <div id="namespace-1046075602" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Requests.Response.RequestReference.html">RequestReference</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Requests.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Requests.Response.html">Response</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/IRIX.Annexes.html">Annexes</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Background.html">Background</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.DateAndTimeOfEvent.html">DateAndTimeOfEvent</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.EventInformation.html">EventInformation</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.GeographicCoordinates.html">GeographicCoordinates</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Height.html">Height</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Identification.html">Identification</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.LocationOffset.html">LocationOffset</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Locations.html">Locations</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Measurements.html">Measurements</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.MeasuringPeriod.html">MeasuringPeriod</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Report.html">Report</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Requests.html">Requests</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.SampleType.html">SampleType</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.SamplingDepth.html">SamplingDepth</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.SamplingPeriod.html">SamplingPeriod</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Uncertainty.html">Uncertainty</a></li>
+                                                    <li class="class"><a href="../classes/IRIX.Value.html">Value</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                <a href="../namespaces/IRIX.Measurements.html">\IRIX\Measurements</a>
+                                            </nav>
+                    <h1><small>\IRIX\Measurements</small>Sample</h1>
+
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/IRIX.Measurements.Sample.Measurement.html">Measurement</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/IRIX.html">\IRIX</a></div>
+                                                            
+                                    <div class="namespace-wrapper"><a href="../namespaces/IRIX.Measurements.html">\IRIX\Measurements</a></div>
+                                                                                        <div class="namespace-wrapper">\IRIX\Measurements\Sample</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/IRIX.html">\IRIX</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on February 16th, 2018 at 15:01.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

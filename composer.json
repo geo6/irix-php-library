@@ -14,5 +14,12 @@
         "php": "^7.0"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.9"
+    },
+    "scripts": {
+        "build:doc": "phpdoc run -p",
+        "serve:doc": "php -S 0.0.0.0:8080 -t docs/"
+    }
 }
