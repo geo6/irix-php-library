@@ -8,6 +8,8 @@
 
 This PHP library allows you to read and write IRIX XML messages.
 
+    composer require geo6/irix-php-library
+
 ## Sections already available
 
 - Annexes
