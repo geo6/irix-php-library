@@ -21,5 +21,10 @@
     "scripts": {
         "build:doc": "phpdoc run -p",
         "serve:doc": "php -S 0.0.0.0:8080 -t docs/"
+    },
+    "autoload": {
+        "psr-4": {
+          "IRIX\\": "src/"
+        }
     }
 }

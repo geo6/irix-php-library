@@ -1,0 +1,68 @@
+<?php
+/**
+ * IRIX PHP Library
+ * PHP Version 5.3+.
+ *
+ * @author Jonathan Beliën <jbe@geo6.be>
+ * @copyright 2016 Jonathan Beliën
+ * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
+ */
+
+namespace IRIX\Identification;
+
+class Identifications
+{
+    public $person_contact_info = null;
+    public $organisation_contact_info = [];
+
+    private $_xml = null;
+
+    public function toXML()
+    {
+        $this->_xml = new \DOMDocument('1.0', 'UTF-8');
+        $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
+
+        $identifications = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/Identification', 'Identifications');
+        $this->_xml->appendChild($identifications);
+        $identifications->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:base', \IRIX\Report::_NAMESPACE.'/Base');
+        $identifications->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:html', 'http://www.w3.org/1999/xhtml');
+
+        if (!is_null($this->person_contact_info)) {
+            foreach ($this->person_contact_info as $p) {
+                $identifications->appendChild($this->_xml->importNode($p->getXMLElement(), true));
+            }
+        }
+        foreach ($this->organisation_contact_info as $o) {
+            $identifications->appendChild($this->_xml->importNode($o->getXMLElement(), true));
+        }
+
+        return $this->_xml;
+    }
+
+    public function getXMLElement()
+    {
+        $this->toXML();
+
+        return $this->_xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Identification', 'Identifications')->item(0);
+    }
+
+    public static function readXMLElement($domelement)
+    {
+        $identifications = new self();
+
+        $pci = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'PersonContactInfo');
+        if (!is_null($pci)) {
+            $identifications->person_contact_info = [];
+            for ($i = 0; $i < $pci->length; $i++) {
+                $identifications->person_contact_info[] = \IRIX\Base\PersonContactInfo::readXMLElement($pci->item($i));
+            }
+        }
+
+        $oci = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/Base', 'OrganisationContactInfo');
+        for ($i = 0; $i < $oci->length; $i++) {
+            $identifications->organisation_contact_info[] = \IRIX\Base\OrganisationContactInfo::readXMLElement($oci->item($i));
+        }
+
+        return $identifications;
+    }
+}

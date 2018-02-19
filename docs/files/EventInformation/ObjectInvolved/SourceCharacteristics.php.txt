@@ -1,0 +1,58 @@
+<?php
+/**
+ * IRIX PHP Library
+ * PHP Version 5.3+.
+ *
+ * @author Jonathan Beliën <jbe@geo6.be>
+ * @copyright 2016 Jonathan Beliën
+ * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
+ */
+
+namespace IRIX\EventInformation\ObjectInvolved;
+
+/**
+ * IRIX PHP Library - EventInformation Section.
+ *
+ * @author Jonathan Beliën <jbe@geo6.be>
+ */
+class SourceCharacteristics
+{
+    public $source = [];
+
+    private $_xml = null;
+
+    public function toXML()
+    {
+        $this->_xml = new \DOMDocument('1.0', 'UTF-8');
+        $this->_xml->formatOutput = \IRIX\Report::_PRETTY;
+
+        $source_characteristics = $this->_xml->createElementNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'SourceCharacteristics');
+        $this->_xml->appendChild($source_characteristics);
+
+        foreach ($this->source as $s) {
+            $source_characteristics->appendChild($this->_xml->importNode($s->getXMLElement(), true));
+        }
+
+        return $this->_xml;
+    }
+
+    public function getXMLElement()
+    {
+        $this->toXML();
+
+        return $this->_xml->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'SourceCharacteristics')->item(0);
+    }
+
+    public static function readXMLElement($domelement)
+    {
+        $source_characteristics = new self();
+
+        $s = $domelement->getElementsByTagNameNS(\IRIX\Report::_NAMESPACE.'/EventInformation', 'Source');
+        for ($i = 0; $i < $s->length; $i++) {
+            $source_characteristics->source[] = \IRIX\EventInformation\ObjectInvolved\SourceCharacteristics\Source::readXMLElement($s->item($i));
+        }
+
+        return $source_characteristics;
+    }
+}
+
