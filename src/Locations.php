@@ -57,7 +57,7 @@ class Locations
             $this->toXML();
         }
 
-        return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/Locations.xsd');
+        return $this->_xml->schemaValidate(dirname(__DIR__).'/xsd/'.\IRIX\Report::_VERSION.'/Locations.xsd');
     }
 
     public static function read($filename)

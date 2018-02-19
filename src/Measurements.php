@@ -76,7 +76,7 @@ class Measurements
             $this->toXML();
         }
 
-        return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/Measurements.xsd');
+        return $this->_xml->schemaValidate(dirname(__DIR__).'/xsd/'.\IRIX\Report::_VERSION.'/Measurements.xsd');
     }
 
     public static function read($filename)

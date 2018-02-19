@@ -66,7 +66,7 @@ class Requests
             $this->toXML();
         }
 
-        return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/Requests.xsd');
+        return $this->_xml->schemaValidate(dirname(__DIR__).'/xsd/'.\IRIX\Report::_VERSION.'/Requests.xsd');
     }
 
     public static function read($filename)

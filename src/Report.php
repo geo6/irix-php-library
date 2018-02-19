@@ -84,7 +84,7 @@ class Report
             $this->toXML();
         }
 
-        return $this->_xml->schemaValidate(__DIR__.'/xsd/'.self::_VERSION.'/IRIX.xsd');
+        return $this->_xml->schemaValidate(dirname(__DIR__).'/xsd/'.self::_VERSION.'/IRIX.xsd');
     }
 
     public function write($filename)

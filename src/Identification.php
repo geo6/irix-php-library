@@ -142,7 +142,7 @@ class Identification
             $this->toXML();
         }
 
-        return $this->_xml->schemaValidate(__DIR__.'/xsd/'.\IRIX\Report::_VERSION.'/ReportIdentification.xsd');
+        return $this->_xml->schemaValidate(dirname(__DIR__).'/xsd/'.\IRIX\Report::_VERSION.'/ReportIdentification.xsd');
     }
 
     public static function read($filename)
