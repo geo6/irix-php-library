@@ -8,7 +8,7 @@
  * @note The IRIX (International Radiological Information Exchange) format is developed and maintained by IAEA (International Atomic Energy Agency) <https://www.iaea.org/>
  */
 
- namespace IRIX\Miscellaneous;
+namespace IRIX\Miscellaneous;
 
 /**
  * Used by :
